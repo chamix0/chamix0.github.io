@@ -31,8 +31,8 @@
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#camera">Camera</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lineOfSight">Line of sight</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Wall occlusion</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">light system</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#wallOcclusion">Wall occlusion</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lightSystem">light system</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#other">UI</a></li>
         </ul>
     </div>
@@ -347,6 +347,55 @@
             <hr>
         </div>
     </section>
+
+    <!-- Wall occlusion -->
+    <section class="resume-section" id="wallOcclusion">
+        <div>
+            <!-- Section Tittle -->
+            <h2>Wall occlusion</h2>
+            <div>
+                <div>
+                    <!--Line of sight gif-->
+                    <img src="../assets/Gif/WallOcclusion/wallOcclusion.gif" alt="line of sight"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <!-- Introduction Text -->
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        The goal of this mechanic is to always keep the player visible. The implementation is fairly
+                        simple: the idea is to calculate the distance to the wall, represented as a segment. Based on a
+                        minimum and maximum distance from the player to the wall, a value between 0 and 1 is generated.
+                        This value is then passed to the wall’s material (which must be masked) and applied with
+                        dithering or a similar effect.
+                    </p>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </section>
+
+    <!-- light system -->
+    <section class="resume-section" id="lightSystem">
+        <div>
+            <!-- Section Tittle -->
+            <h2>Light system</h2>
+            <div>
+                <div>
+                    <!--Line of sight gif-->
+                    <img src="../assets/Gif/WallOcclusion/wallOcclusion.gif" alt="line of sight"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <!-- Introduction Text -->
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        The goal of this mechanic is to always keep the player visible. The implementation is fairly
+                        simple: the idea is to calculate the distance to the wall, represented as a segment. Based on a
+                        minimum and maximum distance from the player to the wall, a value between 0 and 1 is generated.
+                        This value is then passed to the wall’s material (which must be masked) and applied with
+                        dithering or a similar effect.
+                    </p>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </section>
+
     <hr class="m-0"/>
 
 
