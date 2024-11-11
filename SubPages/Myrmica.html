@@ -251,192 +251,105 @@
             <div>
                 <div>
                     <!--Line of sight gif-->
-                    <img src="../assets/Gif/Camera/CameraShowOff.gif" alt="Camera"
+                    <img src="../assets/Gif/LineOfSight/LineOfSight.gif" alt="line of sight"
                          style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
                     <!-- Introduction Text -->
                     <p style="margin: 20px; text-align: justify; line-height: 1.6;">
-                        The main features of the camera are three, how is the target point that the camera follows
-                        calculated, how does it deal with walls and doors and how is the final result put all together.
-                        For better understanding of the camera, debug drawings were added.
-                    </p>
+                        The line of sight is a visual effect that essentially hides everything the player cannot see
+                        from their point of view. Its implementation is composed of various elements: obstacles,
+                        collision data retrieval, rendering information onto a render target, and finally, displaying
+                        the
+                        effect in the world through a post-process material. </p>
 
-                    <!-- Target point header -->
-                    <h3 class="mb-3">Target point</h3>
+                    <!-- obstacles header -->
+                    <h3 class="mb-3">Obstacles </h3>
 
-                    <!-- Target point description -->
+                    <!-- obstacles description -->
                     <p style="margin: 20px; text-align: justify; line-height: 1.6;">
-                        The target point is the point which the camera will be following all the time. This target point
-                        is a bit rought for movement so to smooth it up the real target point is calculated by
-                        interpolating the previous target point and the desired target point at that frame.
+                        Obstacles are essentially a class that inherits from Unreal volumes. These obstacles contain
+                        four points, representing the four corners of the volume (this system is currently limited to
+                        rectangular-shaped obstacles). They are set to receive collisions only on the line of sight
+                        channel, so they don’t interfere with anything else.
                     </p>
 
-                    <!--No look ahead-->
-                    <div style="display: flex; align-items: flex-start; margin: 20px;">
-                        <!-- Paragraph -->
-                        <p style="text-align: justify; line-height: 1.6; flex-grow: 1; margin: 0;">
-                            <span style="font-weight: bold;">NO LOOK AHEAD</span>: By default, with the look-ahead
-                            distances set to zero,
-                            the camera will focus on the character's position.
-                        </p>
+                    <!-- collision data retrieval header -->
+                    <h3 class="mb-3">Collision data retrieval </h3>
 
-                        <!-- GIF -->
-                        <img src="../assets/Gif/Camera/LookAhead/NoLookAhead.gif" alt="Look Ahead GIF"
-                             style="width: 350px; height: auto; margin-left: 20px;">
-                    </div>
-
-                    <!--Fixed look ahead-->
-                    <div style="display: flex; align-items: flex-start; margin: 20px;">
-                        <!-- Paragraph -->
-                        <p style="text-align: justify; line-height: 1.6; flex-grow: 1; margin: 0;">
-                            <span style="font-weight: bold;">FIXED LOOK AHEAD</span>: the camera will focus in a point
-                            determined by the static look ahead distance in the forward direction of the player.
-                        </p>
-
-                        <!-- GIF -->
-                        <img src="../assets/Gif/Camera/LookAhead/FixedLookAhead.gif" alt="fixed Look Ahead GIF"
-                             style="width: 350px; height: auto; margin-left: 20px;">
-                    </div>
-
-                    <!--Dynamic look ahead-->
-                    <div style="display: flex; align-items: flex-start; margin: 20px;">
-                        <!-- Paragraph -->
-                        <p style="text-align: justify; line-height: 1.6; flex-grow: 1; margin: 0;">
-                            <span style="font-weight: bold;">DYNAMIC LOOK AHEAD</span>: will focus in a point ahead of
-                            him but the difference with the fixed look ahead is that the point is calculated with the
-                            current velocity so when the player moves the camera will move to the direction of the
-                            movement and when the player slows, the camera will focus back to the player.
-                        </p>
-
-                        <!-- GIF -->
-                        <img src="../assets/Gif/Camera/LookAhead/DynamicLookAhead.gif" alt="dynamic Look Ahead GIF"
-                             style="width: 350px; height: auto; margin-left: 20px;">
-                    </div>
-
-                    <!-- Target point header -->
-                    <h3 class="mb-3">Margins</h3>
-
-                    <!-- Introduction Text -->
+                    <!-- collision data retrieval description -->
                     <p style="margin: 20px; text-align: justify; line-height: 1.6;">
-                        To prevent the camera from showing to much of the environment, and having unwanted situations
-                        where the player could feel uncomfortable margins were added. This margins check collisions with
-                        walls to “lock” the movement fo the camera if this margins were overpassed.
+                        Once the obstacles are set, it’s time to gather information from the player’s position. This is
+                        done by casting rays to the visible corners of the obstacles around the player. The line of
+                        sight has a limited range, so any obstacles outside this range are excluded from data
+                        collection.
                     </p>
 
-                    <!--margins GIF -->
-                    <img src="../assets/Gif/Camera/Margins/Margins.gif" alt="margins GIF"
-                         style="width: 420px; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+
+                    <!--line of sight data GIF -->
+                    <img src="../assets/img/LineOfSight/lineOfSightData.png" alt="line of sight data png"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
 
                     <p style="margin: 20px; text-align: justify; line-height: 1.6;">
-                        These margins are reduced to three situations. firstly when one of the margins is colliding with
-                        a wall, when two opposite margins are colliding with a wall and when ther is a corner colliding.
-                        In all of the cases the idea is to compensate the distance that the margins penetrated with the
-                        space available so the camera stays as far of the wall as we request it with the margin
-                        distance.
+                        As shown in the picture above, rays are cast only at obstacles. The idea is to cast three rays
+                        per corner: one directed at the corner itself, and two to the sides. This approach helps
+                        identify whether there is empty space or additional obstacles.
+
+
                     </p>
 
-                    <!--bullet point list-->
-                    <ul style="list-style-type: disc; margin: 20px; padding-left: 20px;">
-                        <!-- one margin is colliding -->
-                        <li style="text-align: justify; line-height: 1.6;">
-                            <span style="font-weight: bold;">One of the margins is colliding</span>: When one of the
-                            margins is colliding, what we want to do is push the camera in the opposite direction so the
-                            margin respects its length, as shown in the gif below. If two margins of opposite axes
-                            collide, it handles it the same way, as those margins don’t interfere with each other.
+                    <!--rays image -->
+                    <img src="../assets/img/LineOfSight/ThrowingRays.png" alt="ThrowingRays png"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
 
-                            <!-- Centering the images -->
-                            <div style="display: flex; justify-content: center; margin: 20px;">
-                                <!-- image -->
-                                <img src="../assets/img/Camera/Margins/OneMarginColliding.png"
-                                     alt="OneMarginColliding img"
-                                     style="width: 350px; height: auto; margin-left: 20px;">
-
-                                <!-- GIF -->
-                                <img src="../assets/Gif/Camera/Margins/OneMarginColliding.gif"
-                                     alt="dynamic Look Ahead GIF"
-                                     style="width: 350px; height: auto; margin-left: 20px;">
-                            </div>
-                        </li>
-                        <!-- both margin is colliding -->
-                        <li style="text-align: justify; line-height: 1.6;">
-                            <span style="font-weight: bold;">Both of the margins are colliding</span>: when both of the
-                            margins are colliding the target will be the average point between those points so the
-                            camera will always stay centered.
-
-                            <!-- Centering the images -->
-                            <div style="display: flex; justify-content: center; margin: 20px;">
-                                <!-- image -->
-                                <img src="../assets/img/Camera/Margins/BothMarginColliding.png"
-                                     alt="OneMarginColliding img"
-                                     style="width: 350px; height: auto; margin-left: 20px;">
-
-                                <!-- GIF -->
-                                <img src="../assets/Gif/Camera/Margins/BothMarginColliding.gif"
-                                     alt="dynamic Look Ahead GIF"
-                                     style="width: 350px; height: auto; margin-left: 20px;">
-                            </div>
-                        </li>
-                        <!-- corner colliding is colliding -->
-                        <li style="text-align: justify; line-height: 1.6;">
-                            <span style="font-weight: bold;">No margin is colliding but there is a corner between</span>:
-                            when the character is near a corner, we need diagonal margins as the conventional axis
-                            margins wont detect it. So by throwing diagonal rays the camera knows there is a corner and
-                            will reposition the camera based on the projection of that diagonal ray over the Y and X
-                            axis as seen on the illustration below.
-
-                            <div style="display: flex; justify-content: center; margin: 20px;">
-                                <!-- image -->
-                                <img src="../assets/img/Camera/Margins/CornerColliding.png"
-                                     alt="OneMarginColliding img"
-                                     style="width: 350px; height: auto; margin-left: 20px;">
-
-                                <!-- GIF -->
-                                <img src="../assets/Gif/Camera/Margins/CornerColliding.gif"
-                                     alt="dynamic Look Ahead GIF"
-                                     style="width: 350px; height: auto; margin-left: 20px;">
-                            </div>
-                        </li>
-                    </ul>
-
-                    <!--doors -->
                     <p style="margin: 20px; text-align: justify; line-height: 1.6;">
-                        <span style="font-weight: bold;">DOORS</span>: Finally to end with margins, the way to handle
-                        doors or open rooms where the camera
-                        shouldn’t reposition until the player enters the room is to place blocking volumes for the
-                        rays thrown, this way these doors will keep acting as walls as shown below. But this gives
-                        little control for the designers as they cant control how fast the camera transitions to the
-                        next room.
+                        Since at least one of the vertices is always hidden, the number of rays needed is reduced. When
+                        a ray doesn’t hit anything, it indicates empty space. This space is then filled with imaginary
+                        points at a fixed interval, simulating an invisible wall.
                     </p>
-                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
-                        To solve this there are two factors to check, first if a margin is colliding with a door and the
-                        second one if the player is entering a room. To know if the player is colliding with a door with
-                        a line trace is enough, if the player is entering a room is a bit more complex.
-                        basically the idea is to check if the target point of the camera teleports (it has crossed a
-                        door) and if that happens then it is transitioning. Finally the transition finishes when the
-                        target point is close enough to the previous target point, when no margins are colliding or when
-                        there isn’t any margin colliding with a door.
-                    </p>
-                    <!--Crossing door gif-->
-                    <img src="../assets/Gif/Camera/Margins/CrossingDoor.gif" alt="margins GIF"
-                         style="width: 420px; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
 
-                    <!-- Smooth movement header -->
-                    <h3 class="mb-3">Smooth movement</h3>
+                    <!--fill image -->
+                    <img src="../assets/img/LineOfSight/fillLineOfSight.png" alt="ThrowingRays png"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
 
-                    <!-- description Text -->
+
+                    <!-- Rendering information header -->
+                    <h3 class="mb-3">Rendering information onto a render target </h3>
+
                     <p style="margin: 20px; text-align: justify; line-height: 1.6;">
-                        With the previous points there is a consistent target point but just sticking to the point will
-                        lead to a rigid camera, that's why the camera is interpolated from its actual position to the
-                        target position which would be the desired camera position.
+                        Now that the information is stored, the points are initially unordered. The next step is to
+                        arrange these points by their angle relative to the player, making it easier to represent. The
+                        simplest way to represent this collected data is by constructing a fan triangle mesh, a
+                        mesh made up of triangles that all share a single vertex. This process converts the raw data
+                        into triangles that can be rendered on a render canvas.
                     </p>
+
+                    <!--triangle fan image -->
+                    <img src="../assets/img/LineOfSight/Trianglefan.png" alt="ThrowingRays png"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        After some transformations this is the final result.
+                    </p>
+
+                    <!--render target image -->
+                    <img src="../assets/img/LineOfSight/RenderTarget.png" alt="ThrowingRays png"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+
+                    <!-- final result header -->
+                    <h3 class="mb-3">Collision data retrieval </h3>
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        The final step is to create a post-process material that applies the effect to the screen. I
+                        achieved this by following a tutorial, making a few adjustments to fit my implementation.
+                    </p>
+                    <a href="https://hippowombat.medium.com/tutorial-line-of-sight-visualizer-for-unreal-engine-f32113b1f6f3"
+                       class="BWSimplebutton" target="_blank">Post process tutorial</a>
                 </div>
             </div>
             <hr>
         </div>
     </section>
     <hr class="m-0"/>
-    
 
-    
+
 </div>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
