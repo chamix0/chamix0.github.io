@@ -33,7 +33,7 @@
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lineOfSight">Line of sight</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#wallOcclusion">Wall occlusion</a></li>
             <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#lightSystem">light system</a></li>
-            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#other">UI</a></li>
+            <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#UI">UI</a></li>
         </ul>
     </div>
 
@@ -238,7 +238,6 @@
                     </p>
                 </div>
             </div>
-            <hr>
         </div>
     </section>
     <hr class="m-0"/>
@@ -344,9 +343,9 @@
                        class="BWSimplebutton" target="_blank">Post process tutorial</a>
                 </div>
             </div>
-            <hr>
         </div>
     </section>
+    <hr class="m-0"/>
 
     <!-- Wall occlusion -->
     <section class="resume-section" id="wallOcclusion">
@@ -368,9 +367,10 @@
                     </p>
                 </div>
             </div>
-            <hr>
+
         </div>
     </section>
+    <hr class="m-0"/>
 
     <!-- light system -->
     <section class="resume-section" id="lightSystem">
@@ -379,25 +379,73 @@
             <h2>Light system</h2>
             <div>
                 <div>
-                    <!--Line of sight gif-->
-                    <img src="../assets/Gif/WallOcclusion/wallOcclusion.gif" alt="line of sight"
-                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
                     <!-- Introduction Text -->
                     <p style="margin: 20px; text-align: justify; line-height: 1.6;">
-                        The goal of this mechanic is to always keep the player visible. The implementation is fairly
-                        simple: the idea is to calculate the distance to the wall, represented as a segment. Based on a
-                        minimum and maximum distance from the player to the wall, a value between 0 and 1 is generated.
-                        This value is then passed to the wall’s material (which must be masked) and applied with
-                        dithering or a similar effect.
+                        Because Myrmica's station is a dynamic place, the lights needed to change at certain moments.
+                        Since it has many lights, I created a lighting system structured with a controller and various
+                        light zones, which include special lights as well as emissive meshes.
                     </p>
+                    <!--light system gif-->
+                    <img src="../assets/Gif/LightSystem/LightSystem.gif" alt="light system gif"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        It has two functions: first, to optimize performance by turning off lights that are not visible,
+                        and second, to control normal and emergency lights by turning them on and off as needed.
+                    </p>
+
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        As shown below, these light zones are volumes connected to neighboring zones. The idea is to
+                        keep lights on only in the zone closest to the player and its neighboring zones.
+                    </p>
+
+                    <!--light system gif-->
+                    <img src="../assets/Gif/LightSystem/LightSystemDebug.gif" alt="light system gif"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+
                 </div>
             </div>
-            <hr>
         </div>
     </section>
-
     <hr class="m-0"/>
 
+    <!-- light system -->
+    <section class="resume-section" id="UI">
+        <div>
+            <!-- Section Tittle -->
+            <h2>UI (WIP)</h2>
+            <!--            <div>-->
+            <!--                <div>-->
+            <!--                    &lt;!&ndash; Introduction Text &ndash;&gt;-->
+            <!--                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">-->
+            <!--                        Because Myrmica's station is a dynamic place, the lights needed to change at certain moments.-->
+            <!--                        Since it has many lights, I created a lighting system structured with a controller and various-->
+            <!--                        light zones, which include special lights as well as emissive meshes.-->
+            <!--                    </p>-->
+            <!--                    &lt;!&ndash;light system gif&ndash;&gt;-->
+            <!--                    <img src="../assets/Gif/LightSystem/LightSystem.gif" alt="light system gif"-->
+            <!--                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">-->
+
+            <!--                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">-->
+            <!--                        It has two functions: first, to optimize performance by turning off lights that are not visible,-->
+            <!--                        and second, to control normal and emergency lights by turning them on and off as needed.-->
+            <!--                    </p>-->
+
+            <!--                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">-->
+            <!--                        As shown below, these light zones are volumes connected to neighboring zones. The idea is to-->
+            <!--                        keep lights on only in the zone closest to the player and its neighboring zones.-->
+            <!--                    </p>-->
+
+            <!--                    &lt;!&ndash;light system gif&ndash;&gt;-->
+            <!--                    <img src="../assets/Gif/LightSystem/LightSystemDebug.gif" alt="light system gif"-->
+            <!--                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">-->
+
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--            <hr>-->
+        </div>
+    </section>
+    <hr class="m-0"/>
 
 </div>
 <!-- Bootstrap core JS-->
