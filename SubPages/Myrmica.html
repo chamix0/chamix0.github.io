@@ -414,35 +414,157 @@
         <div>
             <!-- Section Tittle -->
             <h2>UI (WIP)</h2>
-            <!--            <div>-->
-            <!--                <div>-->
-            <!--                    &lt;!&ndash; Introduction Text &ndash;&gt;-->
-            <!--                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">-->
-            <!--                        Because Myrmica's station is a dynamic place, the lights needed to change at certain moments.-->
-            <!--                        Since it has many lights, I created a lighting system structured with a controller and various-->
-            <!--                        light zones, which include special lights as well as emissive meshes.-->
-            <!--                    </p>-->
-            <!--                    &lt;!&ndash;light system gif&ndash;&gt;-->
-            <!--                    <img src="../assets/Gif/LightSystem/LightSystem.gif" alt="light system gif"-->
-            <!--                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">-->
+            <div>
+                <div>
+                    <!-- Introduction Text -->
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        Myrmica's UI is built around Unreal Engine's Common UI plugin. It uses a base class with a
+                        CommonActivatableStack, making it much easier to introduce new screens and navigate back to the
+                        previous screen. Common UI also simplifies input handling and makes it easier to detect and
+                        display changes in the active input method.
+                    </p>
 
-            <!--                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">-->
-            <!--                        It has two functions: first, to optimize performance by turning off lights that are not visible,-->
-            <!--                        and second, to control normal and emergency lights by turning them on and off as needed.-->
-            <!--                    </p>-->
+                    <h3 class="mb-3">Main Menu</h3>
 
-            <!--                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">-->
-            <!--                        As shown below, these light zones are volumes connected to neighboring zones. The idea is to-->
-            <!--                        keep lights on only in the zone closest to the player and its neighboring zones.-->
-            <!--                    </p>-->
+                    <!--General Main menu-->
+                    <h4 class="mb-4">Main Menu</h4>
+                    <!--Main Menu general gif-->
+                    <img src="../assets/Gif/Myrmica_Ui/MainMenu.gif" alt="MainMenu gif"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <br>
 
-            <!--                    &lt;!&ndash;light system gif&ndash;&gt;-->
-            <!--                    <img src="../assets/Gif/LightSystem/LightSystemDebug.gif" alt="light system gif"-->
-            <!--                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">-->
+                    <!--Settings-->
+                    <h4 class="mb-4">Settings</h4>
+                    <!--settings gif-->
+                    <img src="../assets/Gif/Myrmica_Ui/Settings.gif" alt="Settings gif"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <br>
 
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--            <hr>-->
+                    <!--Credits-->
+                    <h4 class="mb-4">Credits</h4>
+                    <!--Credits gif-->
+                    <img src="../assets/Gif/Myrmica_Ui/Credits.gif" alt="credits gif"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <br>
+
+                    <!--new game-->
+                    <h4 class="mb-4">Starting a new game</h4>
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        At the start of the game, the player checks her inbox, sorting through spam emails until she
+                        comes across a confidential mail. The email contains a brief introduction to her mission and
+                        asks her to accept the assignment before she can begin.
+                    </p>
+                    <img src="../assets/Gif/Myrmica_Ui/NewGame.gif" alt="NewGame gif"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <br>
+
+                    <!-- PIA -->
+                    <h3 class="mb-3">P.I.A (Personal Information Assistant) </h3>
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        The P.I.A. is used to keep track of your progress and know more about the characters.
+                        It also helps to provide information about your current quests.
+                    </p>
+
+                    <!--Timelines-->
+                    <h4 class="mb-4">Timelines tab</h4>
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        The timelines are used to check the crew task in one look as well as their time offset, this
+                        screen is updated every time the player enters the P.I.A. and changes with events in the game.
+                    </p>
+                    <!--Timelines gif-->
+                    <img src="../assets/img/Myrmica_Ui/Timelines.png" alt="Timelines"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <br>
+                    <!--Crew info-->
+                    <h4 class="mb-4">Crew info tab</h4>
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        The crew info tab gives the player a bit more of background to understand the complex
+                        personalities of each member of the crew.
+                    </p>
+                    <!--Crew info gif-->
+                    <img src="../assets/img/Myrmica_Ui/Crewinfo.png" alt="crewinfo"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <br>
+                    <!--Map-->
+                    <h4 class="mb-4">Map tab</h4>
+                    <!--Crew info gif-->
+                    <img src="../assets/img/Myrmica_Ui/Map.png" alt="Map"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <br>
+
+                    <!--Objectives-->
+                    <h4 class="mb-4">Objectives tab</h4>
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        The Objectives tab gives the player detailed information about the active quests as well as past
+                        quests.
+                    </p>
+                    <!--Objectives gif-->
+                    <img src="../assets/Gif/Myrmica_Ui/Objectives.Gif" alt="Objectives"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <br>
+
+                    <!-- Pause -->
+                    <h3 class="mb-3">Pause </h3>
+                    <img src="../assets/Gif/Myrmica_Ui/Pause.Gif" alt="Pause"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <br>
+
+                    <!-- Dialogs -->
+                    <h3 class="mb-3">Dialogs </h3>
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        Dialogs are the most important part in the UI as it is where the player stays for most of the
+                        time.
+                    </p>
+                    <img src="../assets/Gif/Myrmica_Ui/Dialogs.gif" alt="Dialogs"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <br>
+
+                    <!-- HUD -->
+                    <h3 class="mb-3">HUD </h3>
+
+                    <!--Stamina bar-->
+                    <h4 class="mb-4">Stamina bar </h4>
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        On top of the main character, there is as bar indicating the stamina of the player which resets
+                        automatically while resting.
+                    </p>
+                    <img src="../assets/Gif/Myrmica_Ui/Stamina.Gif" alt="Stamina"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <br>
+
+                    <!--Objectives-->
+                    <h4 class="mb-4"> Objectives </h4>
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        At the right part of the screen there are the objectives which give simplified information about
+                        the current open quests.
+                    </p>
+                    <img src="../assets/img/Myrmica_Ui/HudObjectives.png" alt="HudObjectives"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <br>
+
+                    <!--TMR-->
+                    <h4 class="mb-4"> TMR (Device to manipulate time perception) </h4>
+                    <p style="margin: 20px; text-align: justify; line-height: 1.6;">
+                        At the lower right part of the screen there is the TMR which is used to manipulate the time
+                        perception of the NPCs so the player can manipulate their time perception. It can also be used
+                        to see the past of some objects.
+                    </p>
+
+                    <img src="../assets/Gif/Myrmica_Ui/TmrTime.gif" alt="TmrTime"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <img src="../assets/Gif/Myrmica_Ui/TmrObj.gif" alt="TmrObj"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <br>
+
+                    <!--Thoughts-->
+                    <h4 class="mb-4"> Thoughts </h4>
+                    <img src="../assets/Gif/Myrmica_Ui/Thoughts.gif" alt="Thoughts"
+                         style="width: auto; height: 315px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); display: block; margin: 0 auto;">
+                    <br>
+
+
+                </div>
+            </div>
         </div>
     </section>
     <hr class="m-0"/>
